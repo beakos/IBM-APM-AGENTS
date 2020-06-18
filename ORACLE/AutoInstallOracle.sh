@@ -39,9 +39,9 @@ fi
 echo "----> Inicia con Descarga de Instaladores para Agentes APM Oracle"
 sleep 2
 sudo chmod 404 /sys/class/dmi/id/product_uuid
-sudo su - tivmon -c "curl http://15.128.65.21/agentes/AGENTES_PRODUCCION/APM_OS_Oracle_Dev_v10.tar --output /opt/ibm/apm/APM_OS_Oracle_Dev_v10.tgz"
+sudo su - tivmon -c "curl http://${IP1}/agentes/AGENTES_PRODUCCION/APM_OS_Oracle_Dev_v10.tar --output /opt/ibm/apm/APM_OS_Oracle_Dev_v10.tgz"
 sudo su - tivmon -c "mkdir /opt/ibm/apm/tmp/"
-sudo su - tivmon -c "curl http://15.128.65.21/agentes/AGENTES_PRODUCCION/smai-oracle_database-custom-01.03.00.00.tgz --output /opt/ibm/apm/tmp/smai-oracle_database-custom-01.03.00.00.tgz"
+sudo su - tivmon -c "curl http://${IP1}/agentes/AGENTES_PRODUCCION/smai-oracle_database-custom-01.03.00.00.tgz --output /opt/ibm/apm/tmp/smai-oracle_database-custom-01.03.00.00.tgz"
 echo "---> Desempaquetando archivos de Instalación"
 sudo su - tivmon -c "tar -C /opt/ibm/apm/ -xf APM_OS_Oracle_Dev_v10.tgz"
 echo "---> Creando Archivo de Configuración silenciosa"
@@ -57,7 +57,7 @@ if [ $(rpm -qa|grep -c bc-1.06) -gt 0 ]; then
     echo "paquete bc ya instalado!"
 else
 		echo "---> Instalando bc"
-    sudo su - tivmon -c "curl http://15.128.65.21/agentes/AGENTES_PRODUCCION/bc-1.06.95-13.el7.x86_64.rpm --output /opt/ibm/apm/bc-1.06.95-13.el7.x86_64.rpm"
+    sudo su - tivmon -c "curl http://${IP1}/agentes/AGENTES_PRODUCCION/bc-1.06.95-13.el7.x86_64.rpm --output /opt/ibm/apm/bc-1.06.95-13.el7.x86_64.rpm"
     sudo rpm -ivh /opt/ibm/apm/bc-1.06.95-13.el7.x86_64.rpm
 fi
 rm -fr APM_OS_Oracle_Dev_v10.tgz
@@ -70,9 +70,9 @@ sudo su - tivmon -c "cat agent/logs/lz_ServerConnectionStatus.txt"
 rm -fr APM_OS_Oracle_Dev_v10* bc-1.06.95-13.el7.x86_64.rpm silentinstall.txt dev
 
 
-sudo su - tivmon -c "curl http://15.128.65.21/silenconfig.sh --output /opt/ibm/apm/silenconfig.sh"
-sudo su - tivmon -c "curl http://15.128.65.21/grants.sql --output /opt/ibm/apm/grants.sql"
-sudo su - tivmon -c "curl http://15.128.65.21/ora.sh --output /opt/ibm/apm/ora.sh"
+sudo su - tivmon -c "curl http://${IP1}/silenconfig.sh --output /opt/ibm/apm/silenconfig.sh"
+sudo su - tivmon -c "curl http://${IP1}/grants.sql --output /opt/ibm/apm/grants.sql"
+sudo su - tivmon -c "curl http://${IP1}/ora.sh --output /opt/ibm/apm/ora.sh"
 #Corrige Permisos para Tivmon
 
 . /herramientas/oracle/.bash_profile
